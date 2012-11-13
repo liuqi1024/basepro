@@ -1,0 +1,4 @@
+== Welcome to Rails
+
+this is a base project of ruby on rails.
+use frequently-used gem.
