@@ -7,7 +7,6 @@ gem 'rails', '3.2.8'
 
 gem 'mysql2'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -36,3 +35,30 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+
+# add by liuqi
+group :development do
+  gem 'sqlite3'
+  gem 'respec'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'quiet_assets'
+end
+
+group :test do
+  gem 'respec'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'capybara'
+  gem 'factory_girl'
+  gem 'shoulda-matchers'
+end
+
+gem 'thin'
+gem 'devise'
+gem "will_paginate", "~> 3.0"
+gem 'bootstrap-will_paginate'
+gem "paperclip", "~> 3.0"
+gem "rails_config"
+gem 'simple_form'
+gem 'rails-i18n'
+
