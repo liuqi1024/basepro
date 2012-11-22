@@ -54,11 +54,15 @@ group :test do
 end
 
 gem 'thin'
-gem 'devise'
+gem "devise", ">= 2.1.2"
+gem "cancan", ">= 1.6.8"
+gem "rolify", ">= 3.2.0"
 gem "will_paginate", "~> 3.0"
 gem 'bootstrap-will_paginate'
 gem "paperclip", "~> 3.0"
 gem "rails_config"
 gem 'simple_form'
 gem 'rails-i18n'
+
+
 
