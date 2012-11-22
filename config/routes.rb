@@ -1,5 +1,8 @@
 Basepro::Application.routes.draw do
-  devise_for :users, :controllers => {:sessions => "sessions"}
+  devise_for :users, :controllers => {:sessions => "sessions"} do
+    get '/users/sign_in', :to => 'sessions#new'
+    get '/admin/sign_in', :to => 'sessions#new'
+  end
 
   root :to => 'home#index'
 
