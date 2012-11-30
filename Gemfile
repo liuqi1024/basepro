@@ -57,6 +57,8 @@ gem 'thin'
 gem "devise", ">= 2.1.2"
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'omniauth-weibo-oauth2'
+
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
 gem "will_paginate", "~> 3.0"

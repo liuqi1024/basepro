@@ -3,7 +3,7 @@
 <div class="nav-collapse collapse">
 	<p class="navbar-text pull-right">
 	<% if user_signed_in? %>
-		Logged in as <a href="#" class="navbar-link"><%= current_user.email if current_user %></a> | 
+		Logged in as <a href="#" class="navbar-link"><%= current_user.name if current_user %></a> | 
 		<%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
 		<% if current_user.has_role? :admin %>
 		    <%= link_to 'Admin', users_path %>

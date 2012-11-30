@@ -211,6 +211,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   config.omniauth :twitter, Settings.twitter_key, Settings.twitter_secret
+  config.omniauth :weibo, Settings.weibo_key, Settings.weibo_secret, :scope => Settings.weibo_scope
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
