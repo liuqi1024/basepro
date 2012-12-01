@@ -1,6 +1,9 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
-    flash[:notice] = request.env["omniauth.auth"].as_json
+    auth = request.env["omniauth.auth"]
+    session[:access_token] = auth.credentials.token
+    session[:expires_at] = auth.credentials.expires_at
+    
     user = User.from_omniauth(request.env["omniauth.auth"])
     if user.persisted?
       sign_in_and_redirect user
@@ -11,4 +14,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   alias_method :weibo, :all
+  alias_method :qq_connect, :all
+  alias_method :twitter, :all
+  alias_method :github, :all
 end

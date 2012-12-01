@@ -58,6 +58,9 @@ gem "devise", ">= 2.1.2"
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-weibo-oauth2'
+gem 'weibo_2'
+gem 'omniauth-qq-connect'
+gem 'omniauth-github'
 
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"

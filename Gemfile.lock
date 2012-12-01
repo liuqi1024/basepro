@@ -100,12 +100,18 @@ GEM
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
+    omniauth-github (1.0.3)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    omniauth-qq-connect (0.2.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-twitter (0.0.14)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
@@ -148,11 +154,13 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.0.0)
+    rake (10.0.2)
     rdoc (3.12)
       json (~> 1.4)
     respec (0.4.0)
       rspec (>= 2.0.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rolify (3.2.0)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
@@ -205,6 +213,11 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     warden (1.2.1)
       rack (>= 1.0)
+    weibo_2 (0.1.1)
+      hashie (~> 1.2.0)
+      json (~> 1.7.3)
+      oauth2 (~> 0.8.0)
+      rest-client (~> 1.6.7)
     will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -222,6 +235,8 @@ DEPENDENCIES
   jquery-rails
   mysql2
   omniauth
+  omniauth-github
+  omniauth-qq-connect
   omniauth-twitter
   omniauth-weibo-oauth2
   paperclip (~> 3.0)
@@ -238,4 +253,5 @@ DEPENDENCIES
   sqlite3
   thin
   uglifier (>= 1.0.3)
+  weibo_2
   will_paginate (~> 3.0)

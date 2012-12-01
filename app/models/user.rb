@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   attr_accessor :login
   attr_accessible :login
   
+  validates :name, :presence => true 
+  validates_uniqueness_of :name, :if => "provider.blank?"
   
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname
+      user.auth = auth.to_json
     end
   end
   

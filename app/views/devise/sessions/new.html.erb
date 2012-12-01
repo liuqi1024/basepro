@@ -8,9 +8,13 @@
 
   <div class="form-actions">
     <%= f.button :submit, "Sign in", class: "btn btn-primary" %>
-		<div style="margin:10px;">
-			使用其他账号登录: 
-			<%= link_to image_tag("icon/twitter.png"), omniauth_authorize_path(resource_name, "twitter") %>
+		<div style="margin-top:10px;">
+			<% if devise_mapping.omniauthable? %>
+				或使用其他账号登录: 
+				<% resource_class.omniauth_providers.each do |provider| %>
+					<%= link_to image_tag("icon/#{provider}.png"), omniauth_authorize_path(resource_name, provider) %>
+				<% end %>
+			<% end %>
 		</div>
   </div>
 <% end %>

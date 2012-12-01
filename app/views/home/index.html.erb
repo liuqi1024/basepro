@@ -1,1 +1,8 @@
-<%= flash[:notice] %>
+<% if user_signed_in? %>
+	<div>
+		welcome to you: <%= @name %>
+	</div>
+	<div>
+		<%= image_tag @avatar %>
+	</div>
+<% end %>
