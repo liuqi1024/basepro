@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   validates :name, :presence => true 
   validates_uniqueness_of :name, :if => "provider.blank?"
   
+  # serialize auth
+  store :auth
+  
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -26,12 +29,24 @@ class User < ActiveRecord::Base
   end
   
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create! do |user|
+    user = where(auth.slice(:provider, :uid)).first
+    if user
+      user.update_attribute(:auth, auth)
+    else
+      user = User.new
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname
-      user.auth = auth.to_json
+      user.auth = auth
+      user.save
     end
+    user
+    # where(auth.slice(:provider, :uid)).first_or_create! do |user|
+    #   user.provider = auth.provider
+    #   user.uid = auth.uid
+    #   user.name = auth.info.nickname
+    #   user.auth = auth
+    # end
   end
   
   def self.new_with_session(params, session)

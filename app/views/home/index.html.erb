@@ -5,4 +5,10 @@
 	<div>
 		<%= image_tag @avatar %>
 	</div>
+	<table class="table table-hover">
+		<tr><td>provider: <%= @provider %></td></tr>
+		<tr><td>uid: <%= @uid %></td></tr>
+		<tr><td>token: <%= @token %></td></tr>
+		<tr><td>expires_at: <%= @expires_at %></td></tr>
+	</table>
 <% end %>
