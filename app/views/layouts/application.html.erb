@@ -36,6 +36,7 @@
 					<div class="">
 						<%= yield :header %>
 					</div>
+          
 					<div class="main">
 						<%#= request.user_agent %>
 						<%= yield %>
@@ -43,14 +44,20 @@
 				</div>
 	      <!--Sidebar content-->
 	    </div>
+			
 	    <div class="span3">
 				<div class="well sidebar-nav">
 					<ul class="nav nav-list">
-						<li class="nav-header">Users</li>
-							<%#= nav_to "用户管理", "", 'users' %>
+						<li class="nav-header">我的收藏</li>
+					</ul>
+				</div>
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">最近回复</li>
 					</ul>
 				</div>
 	    </div>
+			
 	  </div>
 	</div>
 </body>
