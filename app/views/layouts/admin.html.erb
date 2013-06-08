@@ -1,1 +1,71 @@
-<%= yield %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basepro</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+	<style type="text/css">
+		body {
+			padding-top: 60px;
+		 	padding-bottom: 40px;
+		}
+   .sidebar-nav {
+     	padding: 9px 0;
+   }
+ </style>
+
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  <%= render "layouts/message" %>
+	
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<%= render "layouts/navigation" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+	  <div class="row-fluid">
+	    <div class="span9">
+				<div class="well-white">
+					<!--Body content-->
+					<div class="">
+						<%= yield :header %>
+					</div>
+          
+					<div class="main">
+						<%#= request.user_agent %>
+						<%= yield %>
+					</div>
+				</div>
+	      <!--Sidebar content-->
+	    </div>
+			
+	    <div class="span3">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">我的收藏</li>
+						<li class='active'><%= link_to '用户信息维护', '' %></li>
+						<li><%= link_to '论坛信息维护', '' %></li>
+						<li>主题维护</li>
+					</ul>
+				</div>
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">最近回复</li>
+					</ul>
+				</div>
+	    </div>
+			
+	  </div>
+	</div>
+</body>
+</html>
+
+
+
+
