@@ -1,4 +1,6 @@
 Basepro::Application.routes.draw do
+  resources :forums
+
   devise_for :users, :controllers => {sessions: "sessions", omniauth_callbacks: "omniauth_callbacks"} do
     get '/users/sign_in', :to => 'sessions#new'
     get '/admin/sign_in', :to => 'sessions#new'
@@ -11,6 +13,7 @@ Basepro::Application.routes.draw do
     # (app/controllers/admin/products_controller.rb)
     # resources :products
     root :to => 'home#index'
+    resources :users
   end
 
   # The priority is based upon order of creation:

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130032445) do
+ActiveRecord::Schema.define(:version => 20130608041753) do
+
+  create_table "forums", :force => true do |t|
+    t.string   "title"
+    t.string   "desc"
+    t.integer  "cover_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "forums", ["cover_id"], :name => "index_forums_on_cover_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
