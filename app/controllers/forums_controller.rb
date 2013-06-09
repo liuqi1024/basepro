@@ -41,6 +41,8 @@ class ForumsController < ApplicationController
   # POST /forums.json
   def create
     @forum = Forum.new(params[:forum])
+    
+    @forum.cover = Photo.new(source: params[:cover]) unless params[:cover].blank?
 
     respond_to do |format|
       if @forum.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608041753) do
+ActiveRecord::Schema.define(:version => 20130609035528) do
 
   create_table "forums", :force => true do |t|
     t.string   "title"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(:version => 20130608041753) do
   end
 
   add_index "forums", ["cover_id"], :name => "index_forums_on_cover_id"
+
+  create_table "photos", :force => true do |t|
+    t.string   "title"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.text     "desc"
+    t.string   "source_file_name"
+    t.string   "source_content_type"
+    t.integer  "source_file_size"
+    t.datetime "source_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
