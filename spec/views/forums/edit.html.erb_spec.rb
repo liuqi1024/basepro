@@ -16,7 +16,7 @@ describe "forums/edit" do
     assert_select "form", :action => forums_path(@forum), :method => "post" do
       assert_select "input#forum_title", :name => "forum[title]"
       assert_select "input#forum_desc", :name => "forum[desc]"
-      assert_select "input#forum_cover", :name => "forum[cover]"
+      assert_select "input#cover", :name => "cover"
     end
   end
 end

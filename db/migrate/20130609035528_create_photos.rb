@@ -5,7 +5,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :owner_id
       t.string :owner_type
       t.text :desc
-      t.has_attached_file :source
+      t.attachment :source
 
       t.timestamps
     end
