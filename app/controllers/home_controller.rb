@@ -8,7 +8,8 @@ class HomeController < ApplicationController
     # @uid      = current_user.uid
     # @token    = current_user.auth.credentials.token if current_user.auth.credentials
     # @expires_at = current_user.auth.credentials.expires_at if current_user.auth.credentials
-    @name = current_user.name
+    # @name = current_user.name
+    @name = 'haha'
     # @avatar = case current_user.provider
     #           when "weibo"
     #             avatar_weibo
