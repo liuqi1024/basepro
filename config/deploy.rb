@@ -27,17 +27,34 @@ set :normalize_asset_timestamps, false
 
 set :deploy_via, :remote_cache
 
+set :default_environment, {
+  'PATH' => "/Users/liuqi/.rvm/rubies/ruby-1.9.3-p392/bin:$PATH",
+  'RUBY_VERSION' => 'ruby 1.9.3p392',
+  'GEM_HOME'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
+  'GEM_PATH'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
+  'BUNDLE_PATH'  => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3'  # If you are using bundler.
+}
+
 namespace :deploy do
 
-  task :start do ; end
+  task :start do 
+    # run "sudo /opt/nginx/sbin/nginx"
+  end
+  
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
   
   task :symlink_config, roles: :app do
+    run "ruby -v"
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
+  
+  # task :precompile, :role => :app do  
+  #   run "cd #{release_path}/ && rake assets:precompile -trace"  
+  # end 
+  
   after "deploy:finalize_update", "deploy:symlink_config"
 end
 
