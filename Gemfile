@@ -74,3 +74,5 @@ gem 'rails_config'
 
 
 
+gem 'rvm-capistrano'
+gem 'pg'

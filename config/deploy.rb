@@ -3,21 +3,24 @@ set :application, "basepro"
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
+default_run_options[:pty] = true 
 set :scm, :git
 set :repository,  "https://github.com/liuqi1024/basepro.git"
-
-
-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-# role :app, "your app-server here"                          # This may be the same as your `Web` server
-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
-
-default_run_options[:pty] = true 
-
-
-server "10.0.2.26", :app, :web, :db, :primary => true
 set :user, "liuqi"
 # set :scm_passphrase, "myehome"  # The deploy user's password
+
+role :web, "10.0.2.26"
+role :app, "10.0.2.26"
+role :db,  "10.0.2.26", :primary => true
+# server "10.0.2.26", :app, :web, :db, :primary => true
+
+# use rvm
+require "rvm/capistrano"
+set :rvm_ruby_string, :local              # use the same ruby as used locally for deployment
+set :rvm_autolibs_flag, "read-only"       # more info: rvm help autolibs
+
+before 'deploy:setup', 'rvm:install_rvm'  # install RVM
+before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset, OR:
 
 set :use_sudo, false
 
@@ -27,13 +30,13 @@ set :normalize_asset_timestamps, false
 
 set :deploy_via, :remote_cache
 
-set :default_environment, {
-  'PATH' => "/Users/liuqi/.rvm/rubies/ruby-1.9.3-p392/bin:$PATH",
-  'RUBY_VERSION' => 'ruby 1.9.3p392',
-  'GEM_HOME'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
-  'GEM_PATH'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
-  'BUNDLE_PATH'  => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3'  # If you are using bundler.
-}
+# set :default_environment, {
+#   'PATH' => "/Users/liuqi/.rvm/rubies/ruby-1.9.3-p392/bin:$PATH",
+#   'RUBY_VERSION' => 'ruby 1.9.3p392',
+#   'GEM_HOME'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
+#   'GEM_PATH'     => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3',
+#   'BUNDLE_PATH'  => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3'  # If you are using bundler.
+# }
 
 namespace :deploy do
 
