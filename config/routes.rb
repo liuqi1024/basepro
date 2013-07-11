@@ -1,7 +1,7 @@
 Basepro::Application.routes.draw do
   resources :forums
 
-  devise_for :users, :controllers => {sessions: "sessions", omniauth_callbacks: "omniauth_callbacks"} 
+  devise_for :users, controllers: {sessions: "sessions", omniauth_callbacks: "omniauth_callbacks"}, path: '', path_names: { sign_in: 'login', sign_out: 'logout' } 
   
   devise_scope :users do
     get '/users/sign_in', :to => 'sessions#new'
