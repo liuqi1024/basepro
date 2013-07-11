@@ -4,10 +4,8 @@
 	<p class="navbar-text pull-right">
 	<% if user_signed_in? %>
 		Logged in as <a href="#" class="navbar-link"><%= current_user.name if current_user %></a> | 
+		<%= link_to 'Profile',  admin_user_edit_path %>
 		<%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-		<% if current_user.has_role? :admin %>
-		    <%= link_to 'Admin', admin_root_url %>
-	  <% end %>
 	<% else %>
 	  <%= link_to 'Login', new_user_session_path %>  or 
 		<%= link_to 'Sign up', new_user_registration_path %>

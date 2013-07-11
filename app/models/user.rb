@@ -6,12 +6,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  attr_accessor :login
+         
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login
-  # attr_accessible :title, :body
-  
-  attr_accessor :login
-  attr_accessible :login
   
   validates :name, :presence => true 
   validates_uniqueness_of :name, :if => "provider.blank?"

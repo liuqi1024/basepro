@@ -16,6 +16,9 @@ Basepro::Application.routes.draw do
     # resources :products
     root :to => 'home#index'
     resources :users
+    
+    get 'user/edit', to: 'user#edit'
+    put 'user/update_password', to: 'user#update_password'
   end
 
   # The priority is based upon order of creation:
