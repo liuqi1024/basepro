@@ -1,4 +1,8 @@
 Basepro::Application.routes.draw do
+
+  resource :profile, only: [:edit, :update], controller: "profile"
+  get '/profile/:user_id', to: 'profile#show', as: 'profile'
+
   resources :forums
 
   devise_for :users, controllers: {sessions: "sessions", omniauth_callbacks: "omniauth_callbacks"}, path: '', path_names: { sign_in: 'login', sign_out: 'logout' } 

@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   # serialize auth
   store :auth
   
+  has_one :profile
+  
+  before_save :init_profile
+  
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -66,6 +70,9 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
   
+  def init_profile
+    self.create_profile
+  end
 end
 
 

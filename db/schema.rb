@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609035528) do
+ActiveRecord::Schema.define(:version => 20130713033658) do
 
   create_table "forums", :force => true do |t|
     t.string   "title"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(:version => 20130609035528) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "nickname"
+    t.string   "weibo"
+    t.string   "qq"
+    t.text     "intro"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
 
   create_table "roles", :force => true do |t|
     t.string   "name"
