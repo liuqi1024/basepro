@@ -1,7 +1,6 @@
 Basepro::Application.routes.draw do
 
-  resource :profile, only: [:edit, :update], controller: "profile"
-  get '/profile/:user_id', to: 'profile#show', as: 'profile'
+  resources :profiles, only: [:show, :edit, :update]
 
   resources :forums
 

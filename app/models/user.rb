@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   end
   
   def init_profile
-    self.create_profile
+    self.create_profile unless self.profile
   end
 end
 
