@@ -1,22 +1,23 @@
+# load "deploy/assets"
 require "rvm/capistrano"
 require "delayed/recipes" 
-# Execute "bundle install" after deploy, but only when really needed
-require "bundler/capistrano"
+require "bundler/capistrano"  # Execute "bundle install" after deploy, but only when really needed
 
 set :application, "basepro"
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+default_run_options[:pty] = true  # Must be set for the password prompt from git to work
 
-default_run_options[:pty] = true 
 set :scm, :git
 set :repository,  "https://github.com/liuqi1024/basepro.git"
+set :branch, "master"
+set :deploy_via, :remote_cache # In most cases you want to use this option, otherwise each deploy will do a full repository clone every time.
 
 role :web, "10.0.1.189"
 role :app, "10.0.1.189"
 role :db,  "10.0.1.189", :primary => true
 # server "10.0.2.26", :app, :web, :db, :primary => true
 set :user, "liuqi"
+set :use_sudo, false
 # set :scm_passphrase, "myehome"  # The deploy user's password
 
 # use rvm
@@ -29,13 +30,9 @@ before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset, OR:
 # use delayed_job
 set :rails_env, "production"
 
-set :use_sudo, false
-
 set :deploy_to, "/Users/liuqi/deployment/basepro"
 
 set :normalize_asset_timestamps, false
-
-set :deploy_via, :remote_cache
 
 # set :default_environment, {
 #   'PATH' => "/Users/liuqi/.rvm/rubies/ruby-1.9.3-p392/bin:$PATH",
@@ -45,21 +42,19 @@ set :deploy_via, :remote_cache
 #   'BUNDLE_PATH'  => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3'  # If you are using bundler.
 # }
 
-# Clean-up old releases
-after "deploy:restart", "deploy:cleanup"
-
+after "deploy:update_code", "deploy:migrate"
 after "deploy:finalize_update", "deploy:symlink_config"
 
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+# Clean-up old releases
+after "deploy:restart", "deploy:cleanup"
 
 namespace :deploy do
-
   task :start do 
     # run "sudo /opt/nginx/sbin/nginx"
   end
-  
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
@@ -69,36 +64,4 @@ namespace :deploy do
     run "ruby -v"
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
-  
-  # task :precompile, :role => :app do  
-  #   run "cd #{release_path}/ && rake assets:precompile -trace"  
-  # end 
 end
-
-
-
-# set :application, "basepro"
-# set :repository,  "git@github.com:liuqi1024/basepro.git"
-
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-# role :app, "your app-server here"                          # This may be the same as your `Web` server
-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
