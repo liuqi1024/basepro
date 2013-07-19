@@ -1,4 +1,7 @@
+require "rvm/capistrano"
 require "delayed/recipes" 
+# Execute "bundle install" after deploy, but only when really needed
+require "bundler/capistrano"
 
 set :application, "basepro"
 
@@ -8,16 +11,15 @@ set :application, "basepro"
 default_run_options[:pty] = true 
 set :scm, :git
 set :repository,  "https://github.com/liuqi1024/basepro.git"
+
+role :web, "10.0.1.189"
+role :app, "10.0.1.189"
+role :db,  "10.0.1.189", :primary => true
+# server "10.0.2.26", :app, :web, :db, :primary => true
 set :user, "liuqi"
 # set :scm_passphrase, "myehome"  # The deploy user's password
 
-role :web, "10.0.2.26"
-role :app, "10.0.2.26"
-role :db,  "10.0.2.26", :primary => true
-# server "10.0.2.26", :app, :web, :db, :primary => true
-
 # use rvm
-require "rvm/capistrano"
 set :rvm_ruby_string, :local              # use the same ruby as used locally for deployment
 set :rvm_autolibs_flag, "read-only"       # more info: rvm help autolibs
 
@@ -43,6 +45,15 @@ set :deploy_via, :remote_cache
 #   'BUNDLE_PATH'  => '/Users/liuqi/.rvm/gems/ruby-1.9.3-p392@rails3'  # If you are using bundler.
 # }
 
+# Clean-up old releases
+after "deploy:restart", "deploy:cleanup"
+
+after "deploy:finalize_update", "deploy:symlink_config"
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
+
 namespace :deploy do
 
   task :start do 
@@ -62,13 +73,6 @@ namespace :deploy do
   # task :precompile, :role => :app do  
   #   run "cd #{release_path}/ && rake assets:precompile -trace"  
   # end 
-  
-  after "deploy:finalize_update", "deploy:symlink_config"
-  
-  after "deploy:stop",    "delayed_job:stop"
-  after "deploy:start",   "delayed_job:start"
-  after "deploy:restart", "delayed_job:restart"
-  
 end
 
 
