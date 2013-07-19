@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713033658) do
+ActiveRecord::Schema.define(:version => 20130719055621) do
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "forums", :force => true do |t|
     t.string   "title"
@@ -37,16 +53,16 @@ ActiveRecord::Schema.define(:version => 20130713033658) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.integer  "user_id"
     t.string   "nickname"
     t.string   "weibo"
     t.string   "qq"
     t.text     "intro"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

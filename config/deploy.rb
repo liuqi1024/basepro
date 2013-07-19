@@ -1,3 +1,5 @@
+require "delayed/recipes" 
+
 set :application, "basepro"
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
@@ -21,6 +23,9 @@ set :rvm_autolibs_flag, "read-only"       # more info: rvm help autolibs
 
 before 'deploy:setup', 'rvm:install_rvm'  # install RVM
 before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset, OR:
+
+# use delayed_job
+set :rails_env, "production"
 
 set :use_sudo, false
 
@@ -59,6 +64,11 @@ namespace :deploy do
   # end 
   
   after "deploy:finalize_update", "deploy:symlink_config"
+  
+  after "deploy:stop",    "delayed_job:stop"
+  after "deploy:start",   "delayed_job:start"
+  after "deploy:restart", "delayed_job:restart"
+  
 end
 
 

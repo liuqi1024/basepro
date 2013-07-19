@@ -14,7 +14,8 @@ Basepro::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  # modified by liuqi, default is false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -36,5 +37,22 @@ Basepro::Application.configure do
   config.assets.debug = true
   
   # add by liuqi
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'lvh.me:3000' }
+  # ActionMailer Config
+  # Setup for production - deliveries, no errors raised
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  
+  ActionMailer::Base.smtp_settings = {  
+    :address              => "smtp.gmail.com",  
+    :port                 => 587,  
+    :domain               => "gmail.com",  
+    :user_name            => "8655813@gmail.com",  
+    :password             => "sofi2012",  
+    :authentication       => "plain", 
+    :enable_starttls_auto => true # I don't have this, but it should work anyway 
+  } 
+
 end

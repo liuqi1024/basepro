@@ -73,6 +73,10 @@ gem 'rails-i18n'
 gem 'rails_config'
 
 
-
 gem 'rvm-capistrano'
-gem 'pg'
+# gem 'pg'  # need when deployment on heroku
+
+gem 'daemons'
+gem 'delayed_job_active_record'
+
+gem "delayed_job_web"
