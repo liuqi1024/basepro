@@ -48,8 +48,7 @@ after "deploy:finalize_update", "deploy:symlink_config"
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
-# Clean-up old releases
-after "deploy:restart", "deploy:cleanup"
+after "deploy:restart", "deploy:cleanup"     # Clean-up old releases
 
 namespace :deploy do
   task :start do 

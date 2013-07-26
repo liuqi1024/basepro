@@ -1,6 +1,6 @@
 # encoding: utf-8
 class ProfilesController < ApplicationController
-  before_filter :find_profile_by_user_id
+  before_filter :find_self_profile
   
   def show
     
@@ -13,15 +13,25 @@ class ProfilesController < ApplicationController
   def update
     current_user.profile.update_attributes(params[:profile])
     
-    redirect_to edit_profile_url
+    redirect_to edit_profile_url(current_user)
+  end
+  
+  def edit_secure
+    @user = current_user
+  end
+  
+  def update_secure
+    @user = current_user
+    
+    @user.update_without_password(params[:user])
   end
   
   private
   
-  def find_profile_by_user_id
-    user = User.find(params[:id])
+  def find_self_profile
+    # user = User.find(params[:id])
     # user.create_profile unless user.profile # 如果在user的before save的时候做了，这步可以省略。
-    @profile = user.profile
+    @profile = current_user.profile
   end
   
 end

@@ -1,0 +1,6 @@
+<ul class="nav nav-tabs">
+<li class="<%= 'active' if params[:action] == 'edit' %>">
+	<%= link_to "个人信息", edit_profile_path(current_user) %>
+</li>
+<li class="<%= 'active' if params[:action] == 'edit_secure' %>"><%= link_to "安全设置", edit_secure_profiles_path %></li>
+</ul>

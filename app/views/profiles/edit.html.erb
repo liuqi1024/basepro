@@ -1,12 +1,8 @@
-<ul class="nav nav-tabs">
-<li class="active">
-	<%= link_to "个人信息", edit_profile_path(current_user) %>
-</li>
-<li><%= link_to "安全设置", "secure_profile_path(current_user)" %></li>
-<li><%= link_to "健康档案", "" %></li>
-</ul>
+<% content_for :header do -%>
+	<%= render 'header' %>
+<% end -%>
 
-<%= simple_form_for(@profile, html: { method: :put }) do |f| %>
+<%= simple_form_for(@profile, html: { method: :put, class: 'form-horizontal' }, defaults: { input_html: { class: 'input-xlarge' } }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">

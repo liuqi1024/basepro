@@ -2,7 +2,12 @@ Basepro::Application.routes.draw do
   
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   
-  resources :profiles, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update] do 
+    collection do
+      get 'edit_secure'
+      put 'update_secure'
+    end
+  end
 
   resources :forums
 
