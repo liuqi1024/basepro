@@ -12,10 +12,10 @@ set :repository,  "https://github.com/liuqi1024/basepro.git"
 set :branch, "master"
 set :deploy_via, :remote_cache # In most cases you want to use this option, otherwise each deploy will do a full repository clone every time.
 
-role :web, "10.0.1.189"
-role :app, "10.0.1.189"
-role :db,  "10.0.1.189", :primary => true
-# server "10.0.2.26", :app, :web, :db, :primary => true
+# role :web, "10.0.1.189"
+# role :app, "10.0.1.189"
+# role :db,  "10.0.1.189", :primary => true
+server "192.168.192.70", :app, :web, :db, :primary => true
 set :user, "liuqi"
 set :use_sudo, false
 # set :scm_passphrase, "myehome"  # The deploy user's password
@@ -51,12 +51,11 @@ after "deploy:restart", "delayed_job:restart"
 after "deploy:restart", "deploy:cleanup"     # Clean-up old releases
 
 namespace :deploy do
-  task :start do 
-    # run "sudo /opt/nginx/sbin/nginx"
-  end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn server"
+    task command, roles: :app, except: {no_release: true} do
+      run "#{current_path}/config/unicorn_init.sh #{command}"
+    end
   end
   
   task :symlink_config, roles: :app do
