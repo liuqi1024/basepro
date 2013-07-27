@@ -8,7 +8,7 @@ TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/Users/liuqi/workspace/basepro
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 # CMD="$APP_ROOT/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
-CMD="unicorn -D -c $APP_ROOT/config/unicorn.rb"
+CMD="unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 
 action="$1"
 set -u
