@@ -54,6 +54,7 @@ group :test do
 end
 
 gem 'thin'
+gem 'unicorn'
 gem "devise", ">= 2.1.2"
 gem 'omniauth'
 gem 'omniauth-twitter'
