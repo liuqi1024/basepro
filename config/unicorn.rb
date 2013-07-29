@@ -11,8 +11,8 @@ pid "#{Rails.root}/tmp/pids/unicorn.pid"
 stderr_path "#{Rails.root}/log/unicorn.log"
 stdout_path "#{Rails.root}/log/unicorn.log"
 
-listen "#{Rails.root}/tmp/unicorn.todo.sock"
-# listen 8080
+listen "/tmp/unicorn.basepro.sock", :backlog => 64
+listen 8080, :tcp_nopush => true
 
 worker_processes 5
 timeout 30

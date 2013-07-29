@@ -12,10 +12,10 @@ set :repository,  "https://github.com/liuqi1024/basepro.git"
 set :branch, "master"
 set :deploy_via, :remote_cache # In most cases you want to use this option, otherwise each deploy will do a full repository clone every time.
 
-# role :web, "10.0.1.189"
-# role :app, "10.0.1.189"
-# role :db,  "10.0.1.189", :primary => true
-server "192.168.192.70", :app, :web, :db, :primary => true
+role :web, "10.0.1.189"
+role :app, "10.0.1.189"
+role :db,  "10.0.1.189", :primary => true
+# server "192.168.192.70", :app, :web, :db, :primary => true
 set :user, "liuqi"
 set :use_sudo, false
 # set :scm_passphrase, "myehome"  # The deploy user's password
@@ -61,5 +61,6 @@ namespace :deploy do
   task :symlink_config, roles: :app do
     run "ruby -v"
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "mkdir -p #{current_path}/tmp/pids"
   end
 end
