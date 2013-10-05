@@ -27,3 +27,5 @@ config/environments/*.local.yml
 config/database.yml
 
 *.DS_Store
+*.sass-cache/
+/bin
